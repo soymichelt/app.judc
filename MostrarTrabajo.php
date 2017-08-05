@@ -79,6 +79,11 @@
 												<i class="material-icons">delete</i>
 											</a>
 										</li>
+										<li>
+											<a href="Trabajo.php?Id" class="btn-floating blue">
+												<i class="material-icons">library_books</i>
+											</a>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -245,6 +250,9 @@
 					<div class="col s12">
 						<br />
 			            <a target="_blank" href="pdfs/<?php echo $item['pdf']; ?>" class="btn deep-orange" name="Submit" value="Subir" id="dnd_upload">ARCHIVO PDF</a>
+			            <a href="Trabajo.php?Id=<?php echo $item['salaID']; ?>" class="btn btn-flat">
+			            	Cancelar
+			            </a>
 					</div>
 				</div>
 				<?php

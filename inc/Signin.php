@@ -10,7 +10,7 @@
 
 	session_start();
 	require("conexion.php");
-	$consulta = "SELECT fullname, email, rol FROM usuarios WHERE email = '".mysql_real_escape_string($_POST['UserName'])."' AND passwd = '".mysql_real_escape_string($_POST['UserPassword'])."'";
+	$consulta = "SELECT fullname, email, rol FROM usuarios WHERE email = '".$mysqli->real_escape_string($_POST['UserName'])."' AND passwd = '".$mysqli->real_escape_string($_POST['UserPassword'])."'";
 
 	$res = $mysqli->query($consulta);
 	if(!$res) {
@@ -25,10 +25,12 @@
 		}
 		if (!isset($_SESSION['UserName']) || !isset($_SESSION['UserEmail']) || !isset($_SESSION['Rol'])) {
 			header("Location: ../Signin.php?Err=3");
+			//echo $_SESSION["Rol"];
 		}
 		else {
 			if(empty($_SESSION['UserName']) || empty($_SESSION['UserEmail']) || empty($_SESSION['Rol'])) {
 				header("Location: ../Signin.php?Err=3");
+				//echo $_SESSION["Rol"];
 			}
 			else {
 				header("Location: ../Sala.php");

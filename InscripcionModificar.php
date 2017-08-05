@@ -1,408 +1,1019 @@
+<?php
+	//Si ya ha iniciado sesion
+	require("inc/VerifiedSecurity.php");
+	$tmp = VerifiedSesion();
+	if($tmp == 0) {
+		header("Location: Signin.php");
+	}
+
+	$Title = "Modificación de Trabajo";
+
+	//Se valida que se ingrese SalaID
+	if(!isset($_GET['Id'])) {
+		header('Location: Sala.php');
+	}
+	else {
+		if(empty($_GET['Id'])) {
+			header('Location: Sala.php');
+		}
+	}
+
+	//Se carga la conexion
+	require('inc/conexion.php');
+	$mysqli->set_charset("utf8");
+
+	//Se valida que la Sala exista en la BD
+	$res = $mysqli->query("SELECT trabajos.*, salas.nombre, salas.coordinador, salas.enlace, salas.local FROM trabajos INNER JOIN salas ON trabajos.salaID = salas.salaID WHERE trabajoID = ".$_GET['Id']);
+	if(!$res) {
+		header('Location: Sala.php');
+	}
+	else {
+		if($res->num_rows == 0) {
+			header('Location: Sala.php');
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="es">
 	<head>
-		<!--Import materialize.css-->
-		<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-		<title>Sitio Web</title>
-		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"media="screen,projection"/>
-		<link type="text/css" rel="stylesheet" href="css/estilos.css"media="screen,projection"/> 
+		<!--STYLES-->
+		<?php
+			require("inc/_Layout/Styles.php");
+		?>
+		<!--SCRIPTS-->
+		<?php
+			require("inc/_Layout/Scripts.php");
+		?>
 	</head>
 
-	<body class="blue lighten-3">
-		<nav>
-			<div class="nav-wrapper">
-			<a href="#!" class="brand-logo">Logo</a>
-			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="index.php">Inicio</a></li>
-				<li><a href="administrador">Administrador</a></li>
-				<li><a href="Contactos">Javascript</a></li>
-				<li><a href="mobile.html">Mobile</a></li>
-			</ul>
-			<ul class="side-nav" id="mobile-demo">
-				<li><a href="index.php">Inicio</a></li>
-				<li><a href="badges.html">Adminstrador</a></li>
-				<li><a href="contaxtos">Contactos</a></li>
-				<li><a href="mobile.html">Mobile</a></li>
-			</ul>
-			</div>
-		</nav>
+	<body class="blue-grey lighten-5">
+		<?php
+			require("inc/_Layout/MenuAside.php");
+		?>
+		<div class="bg indigo"></div>
+		<div style="height: 72px;"></div>
 	
-		<section class="container white">
-			<form  method="post" action="inc/modificartrabajo.php" enctype="multipart/form-data">
-
+		<div class="content">
 			<?php
-					//Archivo PHP para la conexion
-					$id=$_REQUEST['id'];
-					require('inc/conexion.php');
+				//Archivo PHP para la conexion
+				while($item=$res->fetch_assoc()){ 
+			?>
+			<section class="container white">
+				<div class="content-title z-depth-2 indigo white-text">
+					Inscripci&oacute;n
+					<div class="content-action right">
+						<div class="content-title-action right" style="padding-top:7px;padding-right:7px;">
+							<div class="menu-setting fixed-action-btn horizontal click-to-toggle" style="position: relative;">
+								<a class="btn-floating btn-flat">
+									<i class="material-icons">settings</i>
+								</a>
+								<ul>
+									<?php
+										if($tmp == 1) {
+									?>
+									<li>
+										<a href="Inscripcion.php?SalaID=<?php echo $item['salaID']; ?>" class="btn-floating green">
+											<i class="material-icons">add</i>
+										</a>
+									</li>
+									<?php
+										}
+									?>
+									<li>
+										<a href="#modal" class="btn-floating blue modal-trigger modal-sala">
+											<i class="material-icons">visibility</i>
+										</a>
+									</li>
+									<li>
+										<a href="Sala.php" class="btn-floating blue modal-trigger">
+											<i class="material-icons">library_books</i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form  method="post" action="inc/InscripcionModificar.php">
+					<input name="TrabajoID" type="hidden" value="<?php echo $_GET['Id']; ?>" />
+					<div class="row">
+						<div class="col s12">
+							<?php
+								if(isset($_GET['Err'])) {
+									if(!empty($_GET['Err'])) {
+							?>
+							<div class="chip red">
+								Error al actualizar los datos intente nuevamente
+								<i class="close material-icons">close</i>
+							</div>
+							<br />
+							<?php
+									}
+								}
+							?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="custom-input-field col s12">
+			 				<label for="icon_prefix">Tema del trabajo *</label>
+			 				<br />
+							<textarea name="tema" type="text" rows="10" cols="40" style="height: 80px; resize: none;"><?php echo $item['tema'];?></textarea>
+						</div>
+
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Autor 1 *</label>
+							<br />
+							<input name="autor1" type="text" class="validate" validate="" value="<?php echo $item['autor1'];?>">
+						</div>
 						
-					$consulta="SELECT * FROM trabajos WHERE TrabajoID=$id";
-					$resultado=$mysqli->query($consulta);
-					while($fila=$resultado->fetch_assoc()){ 
-				?>
-				
-				<input name="id" type="hidden" value="<?php echo $id; ?>" />
-				<section class="etiqueta center">
-					<h5>Formulario de Inscripción</h5>
-					<h5>Trabajos a participar en la JUDC 2016</h5>
-					<h5>UNAN FAREM Chontales</h5>
-					<h2>* Obligatorio</h2>
-				</section>
-	 			
-	 			<div class="progress yellow" >
-      				<div class="indeterminate red"></div>
-  				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Autor 2</label><br>
+							<input name="autor2" type="text" class="validate" value="<?php echo $item['autor2'];?>">
+						</div>
 
-	 			<div class="input-field col s6">
-					<i class="mdi-action-account-circle prefix"></i>
-					<label for="icon_prefix">Tema del trabajo *</label>
-					<textarea name="tema" type="text" rows="10" cols="40"><?php echo $fila['tema'];?></textarea>
-				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Autor 3</label>
+							<br />
+							<input name="autor3" type="text" class="validate" value="<?php echo $item['autor3'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Autor 1 *</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="autor1" type="text" value="<?php echo $fila['autor1'];?>" class="validate">
-				</div>
-				
-				<div class="input-field col s6">
-					<label for="icon_prefix">Autor 2 *</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="autor2" type="text" value="<?php echo $fila['autor2'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Autor 4</label>
+							<br />
+							<input name="autor4" type="text" class="validate" value="<?php echo $item['autor4'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Autor 3 *</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="autor3" type="text" value="<?php echo $fila['autor3'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Autor 5</label>
+							<br />
+							<input name="autor5" type="text" class="validate" value="<?php echo $item['autor5'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Autor 4</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="autor4" type="text" value="<?php echo $fila['autor4'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Autor 6</label>
+							<br />
+							<input name="autor6" type="text" class="validate" value="<?php echo $item['autor6'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Autor 5</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="autor5" type="text" value="<?php echo $fila['autor5'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Tutor 1 *</label>
+							<br />
+							<input name="tutor1" type="text" class="validate" value="<?php echo $item['tutor1'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Tutor 1</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="tutor1" type="text" value="<?php echo $fila['tutor1'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Tutor 2</label>
+							<br />
+							<input name="tutor2" type="text" value="<?php echo $item['tutor2'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Tutor 2</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="tutor2" type="text"  value="<?php echo $fila['tutor2'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m4">
+							<label for="icon_prefix">Tutor 3</label>
+							<br />
+							<input name="tutor3" type="text" value="<?php echo $item['tutor3'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Tutor 3</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="tutor3" type="text" value="<?php echo $fila['tutor3'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m6">
+							<label for="icon_prefix">Asesor 1</label>
+							<br />
+							<input name="asesor1" type="text" value="<?php echo $item['asesor1'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Asesor 1</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="asesor1" type="text"  value="<?php echo $fila['asesor1'];?>" class="validate">
-				</div>
+						<div class="custom-input-field col s12 m6">
+							<label for="icon_prefix">Asesor 2</label>
+							<br />
+							<input name="asesor2" type="text" value="<?php echo $item['asesor2'];?>">
+						</div>
 
-				<div class="input-field col s6">
-					<label for="icon_prefix">Asesor 2</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="asesor2" type="text" value="<?php echo $fila['asesor2'];?>" class="validate">
-				</div>
+						<div class="col s12 m6">
+							<div class="row">
+								<div class="custom-input-field col s12">
+									<label for="icon_prefix">Jurado 1</label>
+									<br />
+									<input name="jurado1" type="text" class="validate" value="<?php echo $item['jurado1'];?>">	
+								</div>
+							</div>
+						</div>
 
-				<div class="input-field col s6">
-		 			<label>Tipo de trabajo *</label>
-		 			<br><br>
-			  		<select class="browser-default" name="tipotrabajo"><?php echo $fila['tipotrabajo'];?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == ""){
-			  					?>
-			  						<option selected="" value="" >Seleccione una opción</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="" >Seleccione una opción</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<!--HAY ALGO SELECCIONADO-->
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Informes de investigación científica"){
-			  					?>
-			  						<option selected="selected" value="Informes de investigación científica">Informes de investigación científica</option> 
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Informes de investigación científica">Informes de investigación científica</option> 
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Ensayos"){
-			  					?>
-			  						<option selected="" value="Ensayos">Ensayos</option> 
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Ensayos">Ensayos</option> 
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Proyectos de Desarrollo"){
-			  					?>
-			  						<option selected="" value="Proyectos de Desarrollo">Proyectos de Desarrollo</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Proyectos de Desarrollo">Proyectos de Desarrollo</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Pre defensa de Monografías"){
-			  					?>
-			  						<option selected="" value="Pre defensa de Monografías">Pre defensa de Monografías</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Pre defensa de Monografías">Pre defensa de Monografías</option> 
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Protocolos"){
-			  					?>
-			  						<option selected="" value="Protocolos">Protocolos</option> 
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Protocolos">Protocolos</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Artículos Científicos"){
-			  					?>
-			  						<option selected="" value="Artículos Científicos">Artículos Científicos</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Artículos Científicos">Artículos Científicos</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Software de Aplicación y Páginas Web"){
-			  					?>
-			  						<option selected="" value="Software de Aplicación y Páginas Web">Software de Aplicación y Páginas Web</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Software de Aplicación y Páginas Web">Software de Aplicación y Páginas Web</option> 
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Procesos de Enfermería"){
-			  					?>
-			  						<option selected="" value="Procesos de Enfermería">Procesos de Enfermería</option> 
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Procesos de Enfermería">Procesos de Enfermería</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Evaluación de Planes de Negocio"){
-			  					?>
-			  						<option selected="" value="Evaluación de Planes de Negocio">Evaluación de Planes de Negocio</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Evaluación de Planes de Negocio">Evaluación de Planes de Negocio</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Aplicaciones  Educativas"){
-			  					?>
-			  						<option selected="" value="Aplicaciones  Educativas">Aplicaciones  Educativas</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Aplicaciones  Educativas">Aplicaciones  Educativas</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Proyectos educativos basados en tecnologías"){
-			  					?>
-			  						<option selected="" value="Proyectos educativos basados en tecnologías">Proyectos educativos basados en tecnologías</option> 
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Proyectos educativos basados en tecnologías">Proyectos educativos basados en tecnologías</option> 
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Evaluación de diagnósticos"){
-			  					?>
-			  						<option selected="" value="Evaluación de diagnósticos">Evaluación de diagnósticos</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Eva0luación de diagnósticos">Evaluación de diagnósticos</option>
-			  					<?php
-			  				}
-			  			?>
-			  			<?php
-			  				if($fila['tipotrabajo'] == "Evaluación de casos clínicos"){
-			  					?>
-			  						<option selected="" value="Evaluación de casos clínicos">Evaluación de casos clínicos</option>
-			  					<?php
-			  				}
-			  				else
-			  				{
-			  					?>
-			  						<option value="Evaluación de casos clínicos">Evaluación de casos clínicos</option>
-			  					<?php
-			  				}
-			  			?>
-					</select>
-				</div>
+						<div class="col s12 m6">
+							<div class="row">
+								<div class="custom-input-field col s12">
+									<label for="icon_prefix">Jurado 2</label>
+									<br />
+									<input name="jurado2" type="text" class="validate" value="<?php echo $item['jurado2'];?>">	
+								</div>
+							</div>
+						</div>
+
+						<div class="custom-input-field col s12 m6">
+				 			<label>Tipo de trabajo *</label>
+				 			<br><br>
+					  		<select class="browser-default" class="validate" name="tipotrabajo" >
+								<?php
+					  				if($item['tipotrabajo'] == "Informes de investigación científica"){
+					  					?>
+					  						<option selected="" value="Informes de investigación científica">Informes de investigación científica</option> 
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Informes de investigación científica">Informes de investigación científica</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Ensayos"){
+					  					?>
+					  						<option selected="" value="Ensayos">Ensayos</option> 
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ensayos">Ensayos</option> 
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Proyectos de Desarrollo"){
+					  					?>
+					  						<option selected="" value="Proyectos de Desarrollo">Proyectos de Desarrollo</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Proyectos de Desarrollo">Proyectos de Desarrollo</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Pre defensa de Monografías"){
+					  					?>
+					  						<option selected="" value="Pre defensa de Monografías">Pre defensa de Monografías</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Pre defensa de Monografías">Pre defensa de Monografías</option> 
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Protocolos"){
+					  					?>
+					  						<option selected="" value="Protocolos">Protocolos</option> 
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Protocolos">Protocolos</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Artículos Científicos"){
+					  					?>
+					  						<option selected="" value="Artículos Científicos">Artículos Científicos</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Artículos Científicos">Artículos Científicos</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Software de Aplicación y Páginas Web"){
+					  					?>
+					  						<option selected="" value="Software de Aplicación y Páginas Web">Software de Aplicación y Páginas Web</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Software de Aplicación y Páginas Web">Software de Aplicación y Páginas Web</option> 
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Procesos de Enfermería"){
+					  					?>
+					  						<option selected="" value="Procesos de Enfermería">Procesos de Enfermería</option> 
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Procesos de Enfermería">Procesos de Enfermería</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Evaluación de Planes de Negocio"){
+					  					?>
+					  						<option selected="" value="Evaluación de Planes de Negocio">Evaluación de Planes de Negocio</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Evaluación de Planes de Negocio">Evaluación de Planes de Negocio</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Aplicaciones Educativas"){
+					  					?>
+					  						<option selected="" value="Aplicaciones Educativas">Aplicaciones Educativas</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Aplicaciones Educativas">Aplicaciones Educativas</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Proyectos educativos basados en tecnologías"){
+					  					?>
+					  						<option selected="" value="Proyectos educativos basados en tecnologías">Proyectos educativos basados en tecnologías</option> 
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Proyectos educativos basados en tecnologías">Proyectos educativos basados en tecnologías</option> 
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Evaluación de diagnósticos"){
+					  					?>
+					  						<option selected="" value="Evaluación de diagnósticos">Evaluación de diagnósticos</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Evaluación de diagnósticos">Evaluación de diagnósticos</option>
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['tipotrabajo'] == "Evaluación de casos clínicos"){
+					  					?>
+					  						<option selected="" value="Evaluación de casos clínicos">Evaluación de casos clínicos</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Evaluación de casos clínicos">Evaluación de casos clínicos</option>
+					  					<?php
+					  				}
+					  			?>
+							</select>
+						</div>
+
+						<div class="custom-input-field col s12 m6">
+				 			<label>Departamento al que pertenece *</label>
+				 			<br><br>
+					  		<select class="browser-default" class="validate" name="departamento">
+					  			<?php
+					  				if($item['departamento'] == "Ciencias, Tecnología y Salud"){
+					  					?>
+					  						<option selected="" value="Ciencias, Tecnología y Salud">Ciencias, Tecnología y Salud</option> 
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ciencias, Tecnología y Salud">Ciencias, Tecnología y Salud</option> 
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['departamento'] == "Ciencias Económicas y Administrativas"){
+					  					?>
+					  						<option selected="" value="Ciencias Económicas y Administrativas">Ciencias Económicas y Administrativas</option> 
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ciencias Económicas y Administrativas">Ciencias Económicas y Administrativas</option> 
+					  					<?php
+					  				}
+					  			?>
+								<?php
+					  				if($item['departamento'] == "Ciencias de la Educación y Humanidades"){
+					  					?>
+					  						<option selected="" value="Ciencias de la Educación y Humanidades">Ciencias de la Educación y Humanidades</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ciencias de la Educación y Humanidades">Ciencias de la Educación y Humanidades</option>
+					  					<?php
+					  				}
+					  			?>
+							</select>
+						</div>
+
+						<div class="custom-input-field col s12 m6">
+				 			<label>Carrera a la que pertenece *</label>
+				 			<br><br>
+					  		<select class="browser-default" class="validate" name="carrera">
+
+					  			<?php
+					  				if($item['carrera'] == "Biología"){
+					  					?>
+					  						<option selected="" value="Biología">Biología</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Biología">Biología</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Ciencias Naturales"){
+					  					?>
+					  						<option selected="" value="Ciencias Naturales">Ciencias Naturales</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ciencias Naturales">Ciencias Naturales</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Ciencias Sociales"){
+					  					?>
+					  						<option selected="" value="Ciencias Sociales">Ciencias Sociales</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ciencias Sociales">Ciencias Sociales</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Cultura y Artes"){
+					  					?>
+					  						<option selected="" value="Cultura y Artes">Cultura y Artes</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Cultura y Artes">Cultura y Artes</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Español"){
+					  					?>
+					  						<option selected="" value="Español">Español</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Español">Español</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Física-Matemática"){
+					  					?>
+					  						<option selected="" value="Física-Matemática">Física-Matemática</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Física-Matemática">Física-Matemática</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Informática Educativa"){
+					  					?>
+					  						<option selected="" value="Informática Educativa">Informática Educativa</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Informática Educativa">Informática Educativa</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Inglés"){
+					  					?>
+					  						<option selected="" value="Inglés">Inglés</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Inglés">Inglés</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Lengua y Literatura Hispánicas"){
+					  					?>
+					  						<option selected="" value="Lengua y Literatura Hispánicas">Lengua y Literatura Hispánicas</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Lengua y Literatura Hispánicas">Lengua y Literatura Hispánicas</option> 
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Matemática"){
+					  					?>
+					  						<option selected="" value="Matemática">Matemática</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Matemática">Matemática</option>
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Pedagogía con mención en Educación para la Diversidad"){
+					  					?>
+					  						<option selected="" value="Pedagogía con mención en Educación para la Diversidad">Pedagogía con mención en Educación para la Diversidad</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Pedagogía con mención en Educación para la Diversidad">Pedagogía con mención en Educación para la Diversidad</option>
+					  					<?php
+					  				}
+					  			?>
+
+					  			<?php
+					  				if($item['carrera'] == "Pedagogía con mención en Educación Infantil"){
+					  					?>
+					  						<option selected="" value="Pedagogía con mención en Educación Infantil">Pedagogía con mención en Educación Infantil</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Pedagogía con mención en Educación Infantil">Pedagogía con mención en Educación Infantil</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Psicología"){
+					  					?>
+					  						<option selected="" value="Psicología">Psicología</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Psicología">Psicología</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Bioanálisis Clínico"){
+					  					?>
+					  						<option selected="" value="Bioanálisis Clínico">Bioanálisis Clínico</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Bioanálisis Clínico">Bioanálisis Clínico</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Ciencias Ambientales"){
+					  					?>
+					  						<option selected="" value="Ciencias Ambientales">Ciencias Ambientales</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ciencias Ambientales">Ciencias Ambientales</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Enfermería en Materno Infantil"){
+					  					?>
+					  						<option selected="" value="Enfermería en Materno Infantil">Enfermería en Materno Infantil</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Enfermería en Materno Infantil">Enfermería en Materno Infantil</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Enfermería en Salud Pública"){
+					  					?>
+					  						<option selected="" value="Enfermería en Salud Pública">Enfermería en Salud Pública</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Enfermería en Salud Pública">Enfermería en Salud Pública</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Sistemas de Información"){
+					  					?>
+					  						<option selected="" value="Sistemas de Información">Sistemas de Información</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Sistemas de Información">Sistemas de Información</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Ingeniería Agroindustrial"){
+					  					?>
+					  						<option selected="" value="Ingeniería Agroindustrial">Ingeniería Agroindustrial</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ingeniería Agroindustrial">Ingeniería Agroindustrial</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Ingeniería Agronómica"){
+					  					?>
+					  						<option selected="" value="Ingeniería Agronómica">Ingeniería Agronómica</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ingeniería Agronómica">Ingeniería Agronómica</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Ingeniería Industrial y de Sistemas"){
+					  					?>
+					  						<option selected="" value="Ingeniería Industrial y de Sistemas">Ingeniería Industrial y de Sistemas</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Ingeniería Industrial y de Sistemas">Ingeniería Industrial y de Sistemas</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Medicina"){
+					  					?>
+					  						<option selected="" value="Medicina">Medicina</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Medicina">Medicina</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Topografía"){
+					  					?>
+					  						<option selected="" value="Topografía">Topografía</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Topografía">Topografía</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Turismo Sostenible"){
+					  					?>
+					  						<option selected="" value="Turismo Sostenible">Turismo Sostenible</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Turismo Sostenible">Turismo Sostenible</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Administración de Empresas"){
+					  					?>
+					  						<option selected="" value="Administración de Empresas">Administración de Empresas</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Administración de Empresas">Administración de Empresas</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Banca y Finanzas"){
+					  					?>
+					  						<option selected="" value="Banca y Finanzas">Banca y Finanzas</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Banca y Finanzas">Banca y Finanzas</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Contaduría Pública y Finanzas"){
+					  					?>
+					  						<option selected="" value="Contaduría Pública y Finanzas">Contaduría Pública y Finanzas</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Contaduría Pública y Finanzas">Contaduría Pública y Finanzas</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['carrera'] == "Mercadotecnia"){
+					  					?>
+					  						<option selected="" value="Mercadotecnia">Mercadotecnia</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="Mercadotecnia">Mercadotecnia</option>
+					  					<?php
+					  				}
+					  			?>
+							</select>
+						</div>
+						<div class="custom-input-field col s12 m6">
+				 			<label>Año Escolar *</label>
+				 			<br><br>
+					  		<select class="browser-default" class="validate" name="anioesc">
+					  			<?php
+					  				if($item['anioesc'] == "I"){
+					  					?>
+					  						<option selected="" value="I">I - Primero</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="I">I - Primero</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['anioesc'] == "II"){
+					  					?>
+					  						<option selected="" value="II">II - Segundo</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="II">II - Segundo</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['anioesc'] == "III"){
+					  					?>
+					  						<option selected="" value="III">III - Tercero</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="III">III - Tercero</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['anioesc'] == "IV"){
+					  					?>
+					  						<option selected="" value="IV">IV - Cuarto</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="IV">IV - Cuarto</option>
+					  					<?php
+					  				}
+					  			?>
+					  			<?php
+					  				if($item['anioesc'] == "V"){
+					  					?>
+					  						<option selected="" value="V">V - Quinto</option>
+					  					<?php
+					  				}
+					  				else
+					  				{
+					  					?>
+					  						<option value="V">V - Quinto</option>
+					  					<?php
+					  				}
+					  			?>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s12">
+							<table class="striped">
+								<thead>
+									<tr>
+										<th>Propiedades</th>
+										<th>Valores</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											Nombre
+										</td>
+										<td>
+											<?php echo $item['nombre']; ?>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Coordinador
+										</td>
+										<td>
+											<?php echo $item['coordinador']; ?>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Enlace
+										</td>
+										<td>
+											<?php echo $item['enlace']; ?>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Local
+										</td>
+										<td>
+											<?php echo $item['local']; ?>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<br />
+					<br />
+					<button type="submit" class="btn btn-primary deep-orange">
+						Guardar y continuar
+					</button>
+					<a class="btn btn-flat" href="Trabajo.php?Id=<?php echo $item['salaID']; ?>">
+		            	Cancelar
+		            </a>
+					<br />
+					<br />
 					
-				<div class="input-field col s6">
-		 		<label>Departamento al que pertenece *</label>
-		 			<br><br>
-			  		<select class="browser-default" name="departamento"><?php echo $fila['departamento'];?>
-			  			<option value="<?php echo $fila['departamento'];?>">Seleccione una opción</option>
-						<option value="Ciencias, Tecnología y Salud">Ciencias, Tecnología y Salud</option> 
-						<option value="Ciencias Económicas y Administrativas">Ciencias Económicas y Administrativas</option> 
-						<option value="Ciencias de la Educación y Humanidades">Ciencias de la Educación y Humanidades</option>
-					</select>
-				</div>
+				</form>  	
+			</section>
+			
 
-				<div class="input-field col s6">
-		 			<label>Carrera a la que pertenece *</label>
-		 			<br><br>
-			  		<select class="browser-default" name="carrera">
-						<option value="" >Seleccione una opción</option>
-						<?php echo $fila['carrera'];?>
-						<option value="Biología">Biología</option> 
-						<option value="Ciencias Naturales">Ciencias Naturales</option> 
-						<option value="Ciencias Sociales">Ciencias Sociales</option> 
-						<option value="Cultura y Artes">Cultura y Artes</option> 
-						<option value="Español">Español</option> 
-						<option value="Física-Matemática">Física-Matemática</option> 
-						<option value="Informática Educativa">Informática Educativa</option> 
-						<option value="Inglés">Inglés</option> 
-						<option value="Lengua y Literatura Hispánicas">Lengua y Literatura Hispánicas</option> 
-						<option value="Matemática">Matemática</option> 
-						<option value="Pedagogía con mención en Educación para la Diversidad">Pedagogía con mención en Educación para la Diversidad</option> 
-						<option value="Pedagogía con mención en Educación Infantil">Pedagogía con mención en Educación Infantil</option> 
-						<option value="Psicología">Psicología</option> 
-						<option value="Bioanálisis Clínico">Bioanálisis Clínico</option> 
-						<option value="Ciencias Ambientales">Ciencias Ambientales</option> 
-						<option value="Enfermería en Materno Infantil">Enfermería en Materno Infantil</option> 
-						<option value="Enfermería en Salud Pública">Enfermería en Salud Pública</option> 
-						<option value="Sistemas de Información">Sistemas de Información</option> 
-						<option value="Ingeniería Agroindustrial">Ingeniería Agroindustrial</option> 
-						<option value="Ingeniería Agronómica">Ingeniería Agronómica</option> 
-						<option value="Ingeniería Industrial y de Sistemas">Ingeniería Industrial y de Sistemas</option> 
-						<option value="Medicina">Medicina</option> 
-						<option value="Topografía">Topografía</option> 
-						<option value="Turismo Sostenible">Turismo Sostenible</option> 
-						<option value="Administración de Empresas">Administración de Empresas</option> 
-						<option value="Banca y Finanzas">Banca y Finanzas</option> 
-						<option value="Contaduría Pública y Finanzas">Contaduría Pública y Finanzas</option> 
-						<option value="Mercadotecnia">Mercadotecnia</option>
-					</select>
+			<!-- Modal Structure -->
+			<div id="modal" class="modal">
+				<div class="modal-content">
+					<h4 class="center">Información de la Sala</h4>
+					<p>
+						<table class="striped">
+							<thead>
+								<tr>
+									<th>Propiedades</th>
+									<th>Valores</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>NOMBRE</td>
+									<td>
+										<?php
+											echo $item['nombre'];
+										?>
+									</td>
+								</tr>
+								<tr>
+									<td>COORDINADOR</td>
+									<td>
+										<?php
+											echo $item['coordinador'];
+										?>
+									</td>
+								</tr>
+								<tr>
+									<td>ENLACE</td>
+									<td>
+										<?php
+											echo $item['enlace'];
+										?>
+									</td>
+								</tr>
+								<tr>
+									<td>LOCAL</td>
+									<td>
+										<?php
+											echo $item['local'];
+										?>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p>
 				</div>
-
-				<div class="input-field col s6">
-					<label for="icon_prefix">Nota 1</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="nota1" type="text" value="<?php echo $fila['nota1'];?>"class="validate">
+				<div class="modal-footer">
+					<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
 				</div>
-
-				<div class="input-field col s6">
-					<label for="icon_prefix">Nota 2</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="nota2" type="text" value="<?php echo $fila['nota2'];?>" class="validate">
-				</div>
-
-				<div class="input-field col s6">
-					<label for="icon_prefix">Nota 3</label><br>
-					<i class="mdi-action-account-circle prefix"></i>
-					<input id="icon_prefix" name="nota3" type="text" value="<?php echo $fila['nota3'];?>" class="validate">
-				</div>
-	 			
-	 			<div class="input-field col s6">
-					<label for="icon_prefix">Seleccione el documento en PDF *</label><br>
-					<i class="mdi-action-account-circle prefix"></i><br>
-					<input align="left" type="file" name="pdf" id="" href="inc/subir.php" value="<?php echo $fila['pdf'];?>" class="validate">
-				</div>
-				
-				<br><br>
-				<button type="submit" class="btn btn-primary">Actualizar</button>
-				<a href="inc/eliminar.php"></a>
-				<br><br>
-				<div class="progress blue">
-      				<div class="indeterminate red"></div>
-  				</div>
-				<!-- <button id="enviar"type="button" class="btn waves-effect waves-light"><i class="mdi-content-send right"></i>Enviar</button>-->
-				<?php 
-					}
-				?>
-			</form>  	
-		</section>
+			</div>
+			<?php 
+				}
+			?>
+		</div>
 		
-			 
-		<footer class="page-footer   light-blue darken-3" >
-			<h6 class="white-text">© 2016 Wilber A. Cruz Solís</h6>
-		</footer>
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/codigo.js"></script>
-		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<?php
+			require("inc/_Layout/Footer.php");
+		?>
+
+		<script type="text/javascript">
+			//dropdown
+			$(document).ready(function() {
+				$(".modal-sala").click(function() {
+					$("#modal").openModal();
+				});
+			});
+		</script>
 		
 	</body>
 </html>

@@ -53,7 +53,6 @@
   $resultado=$mysqli->query($consulta);
   if($resultado){
     header("Location: ../Subir.php?Id=".$mysqli->insert_id);
-
   }
   else{
     echo "No guardado";

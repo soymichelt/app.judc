@@ -30,6 +30,10 @@
       <i class="material-icons green-text text-darken-1">library_books</i>
       Salas
     </a>
+    <a class="waves-effect" href="infPremiacionSala.php" target="_blank">
+      <i class="material-icons green-text text-darken-1">assignment_ind</i>
+      Informe General
+    </a>
   </li>
 
 
@@ -45,7 +49,7 @@
     ?>
     <a href="Trabajo.php?Id=<?php echo $iSal['salaID']; ?>" class="waves-effect" href="#!">
       <i class="material-icons blue-grey-text text-darken-1">playlist_add</i>
-      <?php echo $iSal["Nombre"]; ?>
+      <?php echo "Sala ".$iSal["salaID"].": ".$iSal["Nombre"]; ?>
     </a>
     <?php
         }

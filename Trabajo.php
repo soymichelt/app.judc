@@ -62,7 +62,7 @@
 				<div class="row">
 					<div class="col s12">
 						<div class="content-title indigo z-depth-2 white-text">
-							<?php echo $item["Nombre"]; ?>
+							<?php echo "Sala ".$item["salaID"].": ".$item["Nombre"]; ?>
 							<div class="content-title-action right" style="padding-top:7px;padding-right:7px;">
 								<div class="menu-setting fixed-action-btn horizontal click-to-toggle" style="position: relative;">
 									<a class="btn-floating btn-flat">
@@ -122,7 +122,7 @@
 					  				</thead>
 					  				<tbody>
 					  					<?php
-								  			$resTrab = $mysqli->query("SELECT trabajos.trabajoID, trabajos.tema, trabajos.autor1, trabajos.autor2, trabajos.autor3, trabajos.autor4, trabajos.autor5, trabajos.nota1, trabajos.nota2, trabajos.nota3, trabajos.promedio, trabajos.pdf FROM trabajos WHERE trabajos.State=1 AND trabajos.SalaID = ".$item['salaID']." ORDER BY trabajos.promedio DESC");
+								  			$resTrab = $mysqli->query("SELECT trabajos.trabajoID, trabajos.tema, trabajos.autor1, trabajos.autor2, trabajos.autor3, trabajos.autor4, trabajos.autor5, trabajos.nota1, trabajos.nota2, trabajos.nota3, trabajos.promedio, trabajos.pdf FROM trabajos WHERE trabajos.SalaID = ".$item['salaID']." ORDER BY trabajos.promedio DESC");
 								  			if(!$resTrab) {
 								  			}
 								  			else {

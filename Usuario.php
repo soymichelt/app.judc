@@ -1,4 +1,9 @@
 <?php
+	//Si ya ha iniciado sesion
+	require("inc/VerifiedSecurity.php");
+	$tmp = VerifiedSesion();
+
+	
 	$Title = "Usuarios";
 	require("inc/conexion.php");
 	$mysqli->set_charset("utf8");

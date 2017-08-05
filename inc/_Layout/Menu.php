@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="nav-wrapper">
 				<a style="margin-left:10px;" href="Index.php" class="brand-logo">
-					JUDC 2016+
+					JUDC <?php echo date("Y"); ?>+
 				</a>
 				<a href="#" data-activates="mobile-demo" class="button-collapse">
 					<i class="mdi-action-view-headline"></i>

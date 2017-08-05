@@ -45,6 +45,11 @@
 												<i class="material-icons">library_books</i>
 											</a>
 										</li>
+										<li>
+											<a href="infsalas.php" target="_blank" class="btn-floating blue modal-trigger modal-sala">
+												<i class="material-icons">print</i>
+											</a>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -54,10 +59,10 @@
 				<div class="row">
 					<div class="col s12">
 						<div>
-							<div class="page">
+							<div class="page"> 
 						  		<div class="row">
 						  			<div class="col s12">
-						  			  <table id="example" class="table table-hover condensed striped" >
+						  			  <table id="example" class="table table-hover condensed striped responsive-table" >
 									    <thead>
 									      <tr>
 									        <th>ID</th>
@@ -70,7 +75,11 @@
 									    </thead>
 									    
 									    <tbody>
-									      <?php while($fila=$resultado->fetch_assoc()){ 
+										
+										
+										  <?php 
+										 	if($resultado){ 
+											while($fila=$resultado->fetch_assoc()){ 
 									      ?>
 									      <tr>
 									        <td>
@@ -103,11 +112,13 @@
 													</li>
 					  							</ul>
 									        	<?php
+											
 									        		}
 									        	?>
 									        </td>
 									      </tr>       
-									      <?php 
+										  <?php 
+											}
 									        } 
 									      ?>
 									    </tbody>

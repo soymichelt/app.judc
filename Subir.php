@@ -1,4 +1,8 @@
 <?php
+	//Si ya ha iniciado sesion
+	require("inc/VerifiedSecurity.php");
+	$tmp = VerifiedSesion();
+	
 	//Archivo PHP para la conexion
 	$Title = "Subir Trabajo";
 	require('inc/conexion.php');
@@ -63,6 +67,9 @@
 							Subir Trabajo en formato PDF
 						</h5>
 					</div>
+					<?php
+						while($item = $resultado->fetch_assoc()) {
+					?>
 					<form id="formulario" method="POST" action="inc/SaveFile.php" enctype="multipart/form-data">
 						<div class="col s12">
 							<input type="hidden" name="Id" value="<?php echo $TrabajoID; ?>" />
@@ -76,9 +83,6 @@
 							    </div>
 							</div>
 						</div>
-						<?php
-							while($item = $resultado->fetch_assoc()) {
-						?>
 						<div class="col s12">
 							<table class="striped">
 								<thead>
@@ -176,14 +180,15 @@
 								</tbody>
 							</table>
 						</div>
-						<?php
-							}
-						?>
 						<div class="col s12">
 							<br />
 				            <button type="submit" class="btn deep-orange" name="Submit" value="Subir" id="dnd_upload">Guardar PDF</button>
+				            <a class="btn btn-flat" href="Trabajo.php?Id=<?php echo $item['salaID']; ?>">En otro momento</a>
 						</div>
 					</form>
+					<?php
+						}
+					?>
 				</div>
 			</div>
 		</div>

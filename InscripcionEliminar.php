@@ -77,7 +77,7 @@
 									</a>
 									<ul>
 										<li>
-											<a href="Inscripcion.php?Id=<?php echo $item['trabajoID']; ?>" class="btn-floating purple">
+											<a href="InscripcionModificar.php?Id=<?php echo $item['trabajoID']; ?>" class="btn-floating purple">
 												<i class="material-icons">mode_edit</i>
 											</a>
 										</li>
@@ -98,20 +98,20 @@
 					</div>
 				</div>
 				<div class="col s12">
-						<?php
-							if(isset($_GET['Err'])) {
-								if(!empty($_GET['Err'])) {
-						?>
-						<div class="chip red">
-							Error al eliminar intente nuevamente
-							<i class="close material-icons">close</i>
-						</div>
-						<br />
-						<?php
-								}
-							}
-						?>
+					<?php
+						if(isset($_GET['Err'])) {
+							if(!empty($_GET['Err'])) {
+					?>
+					<div class="chip red">
+						Error al eliminar intente nuevamente
+						<i class="close material-icons">close</i>
 					</div>
+					<br />
+					<?php
+							}
+						}
+					?>
+				</div>
 				<div class="row">
 					<div class="col s12">
 						<h5>
@@ -128,7 +128,7 @@
 							<button class="btn deep-orange" name="Submit" value="Subir" id="dnd_upload">
 				            	Eliminar
 				            </button>
-				            <a href="Trabajo.php" class="btn btn-flat">
+				            <a href="Trabajo.php?Id=<?php echo $item['salaID']; ?>" class="btn btn-flat">
 				            	Cancelar
 				            </a>
 						</form>

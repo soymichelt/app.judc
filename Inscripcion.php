@@ -91,7 +91,7 @@
 												</a>
 											</li>
 											<li>
-												<a href="Sala.php" class="btn-floating blue modal-trigger">
+												<a href="Sala.php" class="btn-floating blue">
 													<i class="material-icons">library_books</i>
 												</a>
 											</li>
@@ -206,10 +206,10 @@
 								<option value="Pre defensa de Monografías">Pre defensa de Monografías</option> 
 								<option value="Protocolos">Protocolos</option> 
 								<option value="Artículos Científicos">Artículos Científicos</option> 
-								<option value="Artículos Científicos">Software de Aplicación y Páginas Web</option> 
+								<option value="Software de Aplicación y Páginas Web">Software de Aplicación y Páginas Web</option> 
 								<option value="Procesos de Enfermería">Procesos de Enfermería</option> 
 								<option value="Evaluación de Planes de Negocio">Evaluación de Planes de Negocio</option> 
-								<option value="Aplicaciones  Educativas">Aplicaciones  Educativas</option> 
+								<option value="Aplicaciones Educativas">Aplicaciones  Educativas</option> 
 								<option value="Proyectos educativos basados en tecnologías">Proyectos educativos basados en tecnologías</option> 
 								<option value="Evaluación de diagnósticos">Evaluación de diagnósticos</option> 
 								<option value="Evaluación de casos clínicos">Evaluación de casos clínicos</option>
@@ -217,7 +217,7 @@
 						</div>
 
 						<div class="custom-input-field col s12 m6">
-				 		<label>Departamento al que pertenece *</label>
+				 			<label>Departamento al que pertenece *</label>
 				 			<br><br>
 					  		<select class="browser-default" class="validate" name="departamento">
 								<option value="Ciencias, Tecnología y Salud">Ciencias, Tecnología y Salud</option> 
@@ -273,6 +273,14 @@
 						</div>
 					</div>
 
+					<div class="col s12">
+						<br />
+						<br />
+						<h5>
+							Información de Sala
+						</h5>
+					</div>
+					
 					<div class="row">
 						<div class="col s12">
 							<table class="striped">
@@ -289,14 +297,6 @@
 										</td>
 										<td>
 											<?php echo $item['Nombre']; ?>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											Descripcion
-										</td>
-										<td>
-											<?php echo $item['Descripcion']; ?>
 										</td>
 									</tr>
 									<tr>
