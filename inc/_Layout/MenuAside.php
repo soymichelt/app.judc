@@ -94,7 +94,7 @@
         <i class="material-icons">menu</i>
       </a>
       <a href="Index.php" data-activates="slide-out" class="white-text" style="font-size:1.5rem;">
-          +JUDC 2016
+          +JUDC <?php echo date("Y"); ?>
       </a>
     </div>
   </div>
@@ -152,7 +152,7 @@
         <i class="material-icons">menu</i>
       </a>
       <a href="Index.php" data-activates="slide-out" class="white-text" style="font-size:1.5rem;">
-          +JUDC 2016
+          +JUDC <?php echo date("Y"); ?>
       </a>
       <div class="right">
         <a href="Signin.php" class=" waves-effect waves-light btn deep-orange darken-1">

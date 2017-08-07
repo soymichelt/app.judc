@@ -7,7 +7,7 @@
 	$Title = "Salas";
 	require("inc/conexion.php");
 	$mysqli->set_charset("utf8");
-	$consulta="SELECT * FROM salas";
+	$consulta="SELECT * FROM sala";
     $resultado=$mysqli->query($consulta);
 ?>
 <!DOCTYPE html>
