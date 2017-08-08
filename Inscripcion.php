@@ -103,7 +103,18 @@
 					</div>
 				</div>
 				<form method="POST" action="inc/Inscripcion.php">
-					<input name="salaID" type="hidden" value="<?php echo $item['salaID']; ?>">
+
+					<input name="salaID" type="hidden" value="<?php echo $item['SalaId']; ?>">
+					
+					<div class="custom-input-field col s12">
+				 		<label>Docente a asignar *</label>
+				 		<br><br>
+						<select class="browser-default" class="validate" name="encargadorevision">
+							
+						</select>
+						<br>
+					</div>
+
 					<div class="row">
 						<div class="custom-input-field col s12">
 			 				<label for="icon_prefix">Tema del trabajo *</label>
@@ -304,7 +315,7 @@
 											Coordinador
 										</td>
 										<td>
-											<?php echo $item['coordinador']; ?>
+											<?php echo $item['Coordinador']; ?>
 										</td>
 									</tr>
 									<tr>
@@ -312,7 +323,7 @@
 											Enlace
 										</td>
 										<td>
-											<?php echo $item['enlace']; ?>
+											<?php echo $item['Enlace']; ?>
 										</td>
 									</tr>
 									<tr>
@@ -320,7 +331,7 @@
 											Local
 										</td>
 										<td>
-											<?php echo $item['local']; ?>
+											<?php echo $item['Local']; ?>
 										</td>
 									</tr>
 								</tbody>
@@ -366,7 +377,7 @@
 									<td>COORDINADOR</td>
 									<td>
 										<?php
-											echo $item['coordinador'];
+											echo $item['Coordinador'];
 										?>
 									</td>
 								</tr>
@@ -374,7 +385,7 @@
 									<td>ENLACE</td>
 									<td>
 										<?php
-											echo $item['enlace'];
+											echo $item['Enlace'];
 										?>
 									</td>
 								</tr>
@@ -382,7 +393,7 @@
 									<td>LOCAL</td>
 									<td>
 										<?php
-											echo $item['local'];
+											echo $item['Local'];
 										?>
 									</td>
 								</tr>

@@ -44,9 +44,9 @@
 
   // $pdf=$_POST['pdf'];
 
-  $consulta="INSERT INTO trabajos(salaID, tema, State, autor1, autor2, autor3, autor4, autor5, autor6, tutor1, tutor2, tutor3, asesor1, asesor2, jurado1, jurado2, jurado3, cargo1, cargo2, cargo3, anioesc, tipotrabajo, departamento, carrera, nota1,nota2, nota3, promedio) 
-            VALUES ($salaID, '$tema', 2,'$autor1','$autor2','$autor3','$autor4','$autor5','$autor6','$tutor1','$tutor2','$tutor3',
-            '$asesor1','$asesor2','$jurado1','$jurado2','$jurado3','Presidente','Secretario','Vocal','$anioesc','$tipotrabajo','$departamento','$carrera', 0, 0, 0, 0)";
+  $consulta="INSERT INTO trabajos(salaID, UserId, tema, State, autor1, autor2, autor3, autor4, autor5, autor6, tutor1, tutor2, tutor3, asesor1, asesor2, jurado1, jurado2, cargo1, cargo2, anioesc, tipotrabajo, departamento, carrera, nota1,nota2, promedio) 
+            VALUES ($salaID, NULL, '$tema', 2,'$autor1','$autor2','$autor3','$autor4','$autor5','$autor6','$tutor1','$tutor2','$tutor3',
+            '$asesor1','$asesor2','$jurado1','$jurado2','Presidente','Secretario','$anioesc','$tipotrabajo','$departamento','$carrera', 0, 0, 0)";
 
   // $consul="INSERT INTO salas(nombresala) VALUES ('$nombresala')";
   echo $consulta;

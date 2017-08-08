@@ -1,0 +1,95 @@
+--
+-- ER/Studio 8.0 SQL Code Generation
+-- Company :      I-Connection
+-- Project :      ER.dm1
+-- Author :       Windows User
+--
+-- Date Created : Friday, August 11, 2017 09:54:46
+-- Target DBMS : MySQL 5.x
+--
+
+-- 
+-- TABLE: Salas 
+--
+
+CREATE TABLE Salas(
+    SalaId         INT             AUTO_INCREMENT,
+    Nombre         VARCHAR(100)    NOT NULL,
+    Descripcion    CHAR(10),
+    Coordinador    VARCHAR(100)    NOT NULL,
+    Enlace         VARCHAR(100)    NOT NULL,
+    Local          VARCHAR(100)    NOT NULL,
+    FileName       VARCHAR(200)    NOT NULL,
+    PRIMARY KEY (SalaId)
+)ENGINE=MYISAM
+;
+
+
+
+-- 
+-- TABLE: Trabajos 
+--
+
+CREATE TABLE Trabajos(
+    TrabajoId       INT              NOT NULL,
+    Tema            VARCHAR(1000)    NOT NULL,
+    State           INT              NOT NULL,
+    Autor1          VARCHAR(100)     NOT NULL,
+    Autor2          VARCHAR(100)     NOT NULL,
+    Autor3          VARCHAR(100)     NOT NULL,
+    Autor4          VARCHAR(100)     NOT NULL,
+    Autor5          VARCHAR(100)     NOT NULL,
+    Autor6          VARCHAR(100)     NOT NULL,
+    Tutor1          VARCHAR(100)     NOT NULL,
+    Tutor2          VARCHAR(100)     NOT NULL,
+    Tutor3          VARCHAR(100)     NOT NULL,
+    Asesor1         VARCHAR(100)     NOT NULL,
+    Asesor2         VARCHAR(100)     NOT NULL,
+    Jurado1         VARCHAR(100)     NOT NULL,
+    Jurado2         VARCHAR(100)     NOT NULL,
+    Tipo            VARCHAR(100)     NOT NULL,
+    anioesc         VARCHAR(50)      NOT NULL,
+    departamento    VARCHAR(100)     NOT NULL,
+    carrera         VARCHAR(100)     NOT NULL,
+    nota1           DECIMAL(3, 2)    NOT NULL,
+    nota2           DECIMAL(3, 2)    NOT NULL,
+    promedio        DECIMAL(3, 2)    NOT NULL,
+    SalaId          INT              NOT NULL,
+    UserId          INT              NOT NULL,
+    PRIMARY KEY (TrabajoId)
+)ENGINE=MYISAM
+;
+
+
+
+-- 
+-- TABLE: Usuarios 
+--
+
+CREATE TABLE Usuarios(
+    UserId      INT             AUTO_INCREMENT,
+    fullname    VARCHAR(100)    NOT NULL,
+    email       VARCHAR(100)    NOT NULL,
+    password    VARCHAR(100)    NOT NULL,
+    rol         TINYINT         NOT NULL,
+    PRIMARY KEY (UserId)
+)ENGINE=MYISAM
+;
+
+
+
+-- 
+-- TABLE: Trabajos 
+--
+
+ALTER TABLE Trabajos ADD CONSTRAINT RefSalas1 
+    FOREIGN KEY (SalaId)
+    REFERENCES Salas(SalaId)
+;
+
+ALTER TABLE Trabajos ADD CONSTRAINT RefUsuarios2 
+    FOREIGN KEY (UserId)
+    REFERENCES Usuarios(UserId)
+;
+
+

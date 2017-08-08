@@ -7,7 +7,7 @@
 	$Title = "Salas";
 	require("inc/conexion.php");
 	$mysqli->set_charset("utf8");
-	$consulta="SELECT * FROM sala";
+	$consulta="SELECT * FROM salas";
     $resultado=$mysqli->query($consulta);
 ?>
 <!DOCTYPE html>
@@ -83,30 +83,30 @@
 									      ?>
 									      <tr>
 									        <td>
-									        	<?php echo $fila['salaID']; ?>
+									        	<?php echo $fila['SalaId']; ?>
 									        </td>
 									        <td>
 									        	<?php echo $fila['Nombre']; ?>
 									        </td>
 									        <td>
-									        	<?php echo $fila['coordinador']; ?>
+									        	<?php echo $fila['Coordinador']; ?>
 									        </td>
 									        <td>
-									        	<?php echo $fila['enlace']; ?>
+									        	<?php echo $fila['Enlace']; ?>
 									        </td>
 									        <td>
-									        	<?php echo $fila["local"]; ?>
+									        	<?php echo $fila["Local"]; ?>
 									        </td>
 									        <td>
 									        	<?php
 									        		if($tmp == 1) {
 									        	?>
-									        	<a class='dropdown-button btn btn-flat btn-floating custom-btn-flat' href='javascript:void(0);' data-activates='dropdown<?php echo $fila['salaID']; ?>'>
+									        	<a class='dropdown-button btn btn-flat btn-floating custom-btn-flat' href='javascript:void(0);' data-activates='dropdown<?php echo $fila['SalaId']; ?>'>
 					  								<i style="font-size:16px;" class="material-icons">query_builder</i>
 					  							</a>
-					  							<ul id='dropdown<?php echo $fila['salaID']; ?>' class='dropdown-content'>
+					  							<ul id='dropdown<?php echo $fila['SalaId']; ?>' class='dropdown-content'>
 					  								<li>
-														<a class="deep-orange-text" href="Trabajo.php?Id=<?php echo $fila['salaID']; ?>">
+														<a class="deep-orange-text" href="Trabajo.php?Id=<?php echo $fila['SalaId']; ?>">
 															Trabajos
 														</a>
 													</li>
