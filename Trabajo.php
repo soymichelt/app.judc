@@ -21,7 +21,7 @@
 	require("inc/conexion.php");
 
 	//se crea la consulta
-	$res = $mysqli->query("SELECT salas.salaID, salas.Nombre, salas.Descripcion, salas.coordinador, salas.enlace, salas.local, salas.FileName FROM salas WHERE salas.SalaID = ".$Id." ORDER BY Salas.SalaID");
+	$res = $mysqli->query("SELECT salas.SalaId, salas.Nombre, salas.Descripcion, salas.Coordinador, salas.Enlace, salas.Local, salas.FileName FROM salas WHERE salas.SalaID = ".$Id." ORDER BY Salas.SalaId");
 	
 	//Si no encuentra salaID retorna al inicio
 	if(!$res) {
@@ -62,7 +62,7 @@
 				<div class="row">
 					<div class="col s12">
 						<div class="content-title indigo z-depth-2 white-text">
-							<?php echo "Sala ".$item["salaID"].": ".$item["Nombre"]; ?>
+							<?php echo "Sala ".$item["SalaId"].": ".$item["Nombre"]; ?>
 							<div class="content-title-action right" style="padding-top:7px;padding-right:7px;">
 								<div class="menu-setting fixed-action-btn horizontal click-to-toggle" style="position: relative;">
 									<a class="btn-floating btn-flat">
@@ -73,7 +73,7 @@
 											if($tmp == 1) {
 										?>
 										<li>
-											<a href="Inscripcion.php?SalaID=<?php echo $item['salaID']; ?>" class="btn-floating green">
+											<a href="Inscripcion.php?SalaID=<?php echo $item['SalaId']; ?>" class="btn-floating green">
 												<i class="material-icons">add</i>
 											</a>
 										</li>
@@ -122,7 +122,7 @@
 					  				</thead>
 					  				<tbody>
 					  					<?php
-								  			$resTrab = $mysqli->query("SELECT trabajos.trabajoID, trabajos.tema, trabajos.autor1, trabajos.autor2, trabajos.autor3, trabajos.autor4, trabajos.autor5, trabajos.nota1, trabajos.nota2, trabajos.nota3, trabajos.promedio, trabajos.pdf FROM trabajos WHERE trabajos.SalaID = ".$item['salaID']." ORDER BY trabajos.promedio DESC");
+								  			$resTrab = $mysqli->query("SELECT trabajos.TrabajoId, trabajos.Tema, trabajos.Autor1, trabajos.Autor2, trabajos.Autor3, trabajos.Autor4, trabajos.Autor5, trabajos.nota1, trabajos.nota2, trabajos.promedio, trabajos.pdf FROM trabajos WHERE trabajos.SalaId = ".$item['SalaId']." ORDER BY trabajos.promedio DESC");
 								  			if(!$resTrab) {
 								  			}
 								  			else {
@@ -133,13 +133,13 @@
 					  							<?php
 					  								//AUTORES
 					  								//Autor numero 1
-					  								$autor = $itemTrab['autor1'];
-					  								if(!empty($itemTrab['autor2'])) {
+					  								$autor = $itemTrab['Autor1'];
+					  								if(!empty($itemTrab['Autor2'])) {
 					  									//Autor numero 2
-					  									$autor = $autor.", ".$itemTrab['autor2'];
-					  									if(!empty($itemTrab['autor3'])) {
+					  									$autor = $autor.", ".$itemTrab['Autor2'];
+					  									if(!empty($itemTrab['Autor3'])) {
 					  										//Autor numero 3
-						  									$autor = $autor.", ".$itemTrab['autor3'];
+						  									$autor = $autor.", ".$itemTrab['Autor3'];
 						  									if(!empty($itemTrab['autor4'])) {
 						  										//Autor numero 4
 							  									$autor = $autor.", ".$itemTrab['autor4'];
@@ -154,7 +154,7 @@
 					  								echo $autor;
 					  								echo "<br />";
 					  								echo "<div class='custom-sub-title'>";
-					  								echo $itemTrab['tema'];
+					  								echo $itemTrab['Tema'];
 					  								echo "</div>";
 					  							?>
 					  						</td>
@@ -168,20 +168,20 @@
 					  							<?php echo $itemTrab['promedio']; ?>
 					  						</td>
 					  						<td>
-					  							<a class='dropdown-button btn btn-flat btn-floating custom-btn-flat' href='javascript:void(0);' data-activates='dropdown<?php echo $itemTrab['trabajoID']; ?>'>
+					  							<a class='dropdown-button btn btn-flat btn-floating custom-btn-flat' href='javascript:void(0);' data-activates='dropdown<?php echo $itemTrab['TrabajoId']; ?>'>
 					  								<i style="font-size:16px;" class="material-icons">query_builder</i>
 					  							</a>
-					  							<ul id='dropdown<?php echo $itemTrab['trabajoID']; ?>' class='dropdown-content'>
+					  							<ul id='dropdown<?php echo $itemTrab['TrabajoId']; ?>' class='dropdown-content'>
 					  								<?php
 					  									if($tmp == 1) {
 					  								?>
 													<li>
-														<a class="deep-orange-text" href="InscripcionModificar.php?Id=<?php echo $itemTrab['trabajoID']; ?>">
+														<a class="deep-orange-text" href="InscripcionModificar.php?Id=<?php echo $itemTrab['TrabajoId']; ?>">
 															Editar
 														</a>
 													</li>
 													<li>
-														<a class="deep-orange-text" href="InscripcionEliminar.php?Id=<?php echo $itemTrab['trabajoID']; ?>">
+														<a class="deep-orange-text" href="InscripcionEliminar.php?Id=<?php echo $itemTrab['TrabajoId']; ?>">
 															Eliminar
 														</a>
 													</li>
@@ -189,7 +189,7 @@
 														}
 													?>
 													<li>
-														<a class="deep-orange-text" href="MostrarTrabajo.php?Id=<?php echo $itemTrab['trabajoID']; ?>">
+														<a class="deep-orange-text" href="MostrarTrabajo.php?Id=<?php echo $itemTrab['TrabajoId']; ?>">
 															Mostrar
 														</a>
 													</li>
@@ -204,7 +204,7 @@
 													?>
 													<li class="divider"></li>
 													<li>
-														<a class="deep-orange-text" href="Calificacion.php?Id=<?php echo $itemTrab['trabajoID']; ?>">
+														<a class="deep-orange-text" href="Calificacion.php?Id=<?php echo $itemTrab['TrabajoId']; ?>">
 															Calificar
 														</a>
 													</li>

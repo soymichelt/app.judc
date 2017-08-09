@@ -5,13 +5,13 @@
 	if($tmp == 0) {
 		header("Location: Signin.php");
 	}
-	
+	echo $_POST["Id"];
 	if(isset($_POST['Id'])) {
 		if(!empty($_POST['Id'])) {
 			$Id = $_POST['Id'];
 		}
 		else {
-			header('Location: ../Index.php');
+			//header('Location: ../Index.php');
 		}
 	}
 	else {
@@ -40,6 +40,7 @@
 					if($image_file_type == 'pdf') {
 						if(move_uploaded_file($_FILES['pdf']['tmp_name'], $copiarchivo)) {
 							$act="UPDATE trabajos SET state=1, pdf = '".$nombrepdf."' WHERE trabajoID = ".$Id;
+							//echo $act;
 							$res=$mysqli->query($act);
 							if(!$res) {
 								header("Location: ../Subir.php?Id=".$item["trabajoID"]."&Err=4");
