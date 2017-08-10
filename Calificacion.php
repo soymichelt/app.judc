@@ -68,7 +68,7 @@
 									</a>
 									<ul>
 										<li>
-											<a href="Inscripcion.php?Id=<?php echo $item['salaID']; ?>" class="btn-floating green">
+											<a href="Inscripcion.php?Id=<?php echo $item['SalaId']; ?>" class="btn-floating green">
 												<i class="material-icons">add</i>
 											</a>
 										</li>
@@ -100,9 +100,9 @@
 						<div class="col s12 m6">
 							<h5 class="center custom-h5">
 								<?php
-									echo $item['jurado1'];
+									echo $item['Jurado1'];
 									echo "<br />";
-									echo "<span>(".$item['cargo1'].")</span>";
+									echo "<span>(".$item['Cargo1'].")</span>";
 								?>
 							</h5>
 							<input type="number" value="<?php echo $item['nota1']; ?>" step="any" name="nota1" min="0" max="100" required="required" placeholder="Ingresar nota" validate="" class="validate" />
@@ -110,9 +110,9 @@
 						<div class="col s12 m6">
 							<h5 class="center custom-h5">
 								<?php
-									echo $item['jurado2'];
+									echo $item['Jurado2'];
 									echo "<br />";
-									echo "<span>(".$item['cargo2'].")</span>";
+									echo "<span>(".$item['Cargo2'].")</span>";
 								?>
 							</h5>
 							<input type="number" value="<?php echo $item['nota2']; ?>" step="any" name="nota2" min="0" max="100" required="required" placeholder="Ingresar nota" validate="" class="validate" />
@@ -138,7 +138,7 @@
 										<td>TEMA</td>
 										<td>
 											<?php 
-												echo $item['tema'];
+												echo $item['Tema'];
 											?>
 										</td>
 									</tr>
@@ -146,21 +146,21 @@
 										<td>AUTOR(ES)</td>
 										<td>
 											<?php
-												echo $item['autor1'];
-												if(!empty($item['autor2'])) {
-													echo ', '.$item['autor2'];
+												echo $item['Autor1'];
+												if(!empty($item['Autor2'])) {
+													echo ', '.$item['Autor2'];
 
-													if(!empty($item['autor3'])) {
-														echo ', '.$item['autor3'];
+													if(!empty($item['Autor3'])) {
+														echo ', '.$item['Autor3'];
 
-														if(!empty($item['autor4'])) {
-															echo ', '.$item['autor4'];
+														if(!empty($item['Autor4'])) {
+															echo ', '.$item['Autor4'];
 
-															if(!empty($item['autor5'])) {
-																echo ', '.$item['autor5'];
+															if(!empty($item['Autor5'])) {
+																echo ', '.$item['Autor5'];
 
-																if(!empty($item['autor6'])) {
-																	echo ', '.$item['autor6'];
+																if(!empty($item['Autor6'])) {
+																	echo ', '.$item['Autor6'];
 																}
 															}
 														}
@@ -173,12 +173,12 @@
 										<td>TUTOR(ES)</td>
 										<td>
 											<?php
-												echo $item['tutor1'];
-												if(!empty($item['tutor2'])) {
-													echo ', '.$item['tutor2'];
+												echo $item['Tutor1'];
+												if(!empty($item['Tutor2'])) {
+													echo ', '.$item['Tutor2'];
 
-													if(!empty($item['tutor3'])) {
-														echo ', '.$item['tutor3'];
+													if(!empty($item['Tutor3'])) {
+														echo ', '.$item['Tutor3'];
 													}
 												}
 											?>
@@ -188,9 +188,9 @@
 										<td>ASESOR(ES)</td>
 										<td>
 											<?php
-												echo $item['asesor1'];
-												if(!empty($item['asesor2'])) {
-													echo ', '.$item['asesor2'];
+												echo $item['Asesor1'];
+												if(!empty($item['Asesor2'])) {
+													echo ', '.$item['Asesor2'];
 												}
 											?>
 										</td>
@@ -199,7 +199,7 @@
 										<td>TIPO DE TRABAJO</td>
 										<td>
 											<?php
-												echo $item['tipotrabajo'];
+												echo $item['Tipotrabajo'];
 											?>
 										</td>
 									</tr>
@@ -278,7 +278,7 @@
 				            <button type="submit" class="btn deep-orange" name="Submit" value="Subir" id="dnd_upload">
 				            	Calificar
 				            </button>
-				            <a class="btn btn-flat" href="Trabajo.php?Id=<?php echo $item['salaID']; ?>">
+				            <a class="btn btn-flat" href="Trabajo.php?Id=<?php echo $item['SalaId']; ?>">
 				            	Cancelar
 				            </a>
 						</div>
