@@ -60,7 +60,7 @@
 			?>
 			<section class="container white">
 				<div class="content-title z-depth-2 indigo white-text">
-					Inscripci&oacute;n
+					Edici&oacute;n de Trabajo
 					<div class="content-action right">
 						<div class="content-title-action right" style="padding-top:7px;padding-right:7px;">
 							<div class="menu-setting fixed-action-btn horizontal click-to-toggle" style="position: relative;">
@@ -72,7 +72,7 @@
 										if($tmp == 1) {
 									?>
 									<li>
-										<a href="Inscripcion.php?SalaID=<?php echo $item['salaID']; ?>" class="btn-floating green">
+										<a href="Inscripcion.php?SalaID=<?php echo $item['SalaId']; ?>" class="btn-floating green">
 											<i class="material-icons">add</i>
 										</a>
 									</li>
@@ -117,72 +117,72 @@
 						<div class="custom-input-field col s12">
 			 				<label for="icon_prefix">Tema del trabajo *</label>
 			 				<br />
-							<textarea name="tema" type="text" rows="10" cols="40" style="height: 80px; resize: none;"><?php echo $item['tema'];?></textarea>
+							<textarea name="tema" type="text" rows="10" cols="40" style="height: 80px; resize: none;"><?php echo $item['Tema'];?></textarea>
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Autor 1 *</label>
 							<br />
-							<input name="autor1" type="text" class="validate" validate="" value="<?php echo $item['autor1'];?>">
+							<input name="autor1" type="text" class="validate" validate="" value="<?php echo $item['Autor1'];?>">
 						</div>
 						
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Autor 2</label><br>
-							<input name="autor2" type="text" class="validate" value="<?php echo $item['autor2'];?>">
+							<input name="autor2" type="text" class="validate" value="<?php echo $item['Autor2'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Autor 3</label>
 							<br />
-							<input name="autor3" type="text" class="validate" value="<?php echo $item['autor3'];?>">
+							<input name="autor3" type="text" class="validate" value="<?php echo $item['Autor3'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Autor 4</label>
 							<br />
-							<input name="autor4" type="text" class="validate" value="<?php echo $item['autor4'];?>">
+							<input name="autor4" type="text" class="validate" value="<?php echo $item['Autor4'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Autor 5</label>
 							<br />
-							<input name="autor5" type="text" class="validate" value="<?php echo $item['autor5'];?>">
+							<input name="autor5" type="text" class="validate" value="<?php echo $item['Autor5'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Autor 6</label>
 							<br />
-							<input name="autor6" type="text" class="validate" value="<?php echo $item['autor6'];?>">
+							<input name="autor6" type="text" class="validate" value="<?php echo $item['Autor6'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Tutor 1 *</label>
 							<br />
-							<input name="tutor1" type="text" class="validate" value="<?php echo $item['tutor1'];?>">
+							<input name="tutor1" type="text" class="validate" value="<?php echo $item['Tutor1'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Tutor 2</label>
 							<br />
-							<input name="tutor2" type="text" value="<?php echo $item['tutor2'];?>">
+							<input name="tutor2" type="text" value="<?php echo $item['Tutor2'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m4">
 							<label for="icon_prefix">Tutor 3</label>
 							<br />
-							<input name="tutor3" type="text" value="<?php echo $item['tutor3'];?>">
+							<input name="tutor3" type="text" value="<?php echo $item['Tutor3'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m6">
 							<label for="icon_prefix">Asesor 1</label>
 							<br />
-							<input name="asesor1" type="text" value="<?php echo $item['asesor1'];?>">
+							<input name="asesor1" type="text" value="<?php echo $item['Asesor1'];?>">
 						</div>
 
 						<div class="custom-input-field col s12 m6">
 							<label for="icon_prefix">Asesor 2</label>
 							<br />
-							<input name="asesor2" type="text" value="<?php echo $item['asesor2'];?>">
+							<input name="asesor2" type="text" value="<?php echo $item['Asesor2'];?>">
 						</div>
 
 						<div class="col s12 m6">
@@ -190,7 +190,7 @@
 								<div class="custom-input-field col s12">
 									<label for="icon_prefix">Jurado 1</label>
 									<br />
-									<input name="jurado1" type="text" class="validate" value="<?php echo $item['jurado1'];?>">	
+									<input name="jurado1" type="text" class="validate" value="<?php echo $item['Jurado1'];?>">	
 								</div>
 							</div>
 						</div>
@@ -200,7 +200,7 @@
 								<div class="custom-input-field col s12">
 									<label for="icon_prefix">Jurado 2</label>
 									<br />
-									<input name="jurado2" type="text" class="validate" value="<?php echo $item['jurado2'];?>">	
+									<input name="jurado2" type="text" class="validate" value="<?php echo $item['Jurado2'];?>">	
 								</div>
 							</div>
 						</div>
@@ -210,7 +210,7 @@
 				 			<br><br>
 					  		<select class="browser-default" class="validate" name="tipotrabajo" >
 								<?php
-					  				if($item['tipotrabajo'] == "Informes de investigación científica"){
+					  				if($item['Tipotrabajo'] == "Informes de investigación científica"){
 					  					?>
 					  						<option selected="" value="Informes de investigación científica">Informes de investigación científica</option> 
 					  					<?php
@@ -223,7 +223,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Ensayos"){
+					  				if($item['Tipotrabajo'] == "Ensayos"){
 					  					?>
 					  						<option selected="" value="Ensayos">Ensayos</option> 
 					  					<?php
@@ -236,7 +236,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Proyectos de Desarrollo"){
+					  				if($item['Tipotrabajo'] == "Proyectos de Desarrollo"){
 					  					?>
 					  						<option selected="" value="Proyectos de Desarrollo">Proyectos de Desarrollo</option>
 					  					<?php
@@ -249,7 +249,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Pre defensa de Monografías"){
+					  				if($item['Tipotrabajo'] == "Pre defensa de Monografías"){
 					  					?>
 					  						<option selected="" value="Pre defensa de Monografías">Pre defensa de Monografías</option>
 					  					<?php
@@ -262,7 +262,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Protocolos"){
+					  				if($item['Tipotrabajo'] == "Protocolos"){
 					  					?>
 					  						<option selected="" value="Protocolos">Protocolos</option> 
 					  					<?php
@@ -275,7 +275,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Artículos Científicos"){
+					  				if($item['Tipotrabajo'] == "Artículos Científicos"){
 					  					?>
 					  						<option selected="" value="Artículos Científicos">Artículos Científicos</option>
 					  					<?php
@@ -288,7 +288,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Software de Aplicación y Páginas Web"){
+					  				if($item['Tipotrabajo'] == "Software de Aplicación y Páginas Web"){
 					  					?>
 					  						<option selected="" value="Software de Aplicación y Páginas Web">Software de Aplicación y Páginas Web</option>
 					  					<?php
@@ -301,7 +301,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Procesos de Enfermería"){
+					  				if($item['Tipotrabajo'] == "Procesos de Enfermería"){
 					  					?>
 					  						<option selected="" value="Procesos de Enfermería">Procesos de Enfermería</option> 
 					  					<?php
@@ -314,7 +314,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Evaluación de Planes de Negocio"){
+					  				if($item['Tipotrabajo'] == "Evaluación de Planes de Negocio"){
 					  					?>
 					  						<option selected="" value="Evaluación de Planes de Negocio">Evaluación de Planes de Negocio</option>
 					  					<?php
@@ -327,7 +327,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Aplicaciones Educativas"){
+					  				if($item['Tipotrabajo'] == "Aplicaciones Educativas"){
 					  					?>
 					  						<option selected="" value="Aplicaciones Educativas">Aplicaciones Educativas</option>
 					  					<?php
@@ -340,7 +340,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Proyectos educativos basados en tecnologías"){
+					  				if($item['Tipotrabajo'] == "Proyectos educativos basados en tecnologías"){
 					  					?>
 					  						<option selected="" value="Proyectos educativos basados en tecnologías">Proyectos educativos basados en tecnologías</option> 
 					  					<?php
@@ -353,7 +353,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Evaluación de diagnósticos"){
+					  				if($item['Tipotrabajo'] == "Evaluación de diagnósticos"){
 					  					?>
 					  						<option selected="" value="Evaluación de diagnósticos">Evaluación de diagnósticos</option>
 					  					<?php
@@ -366,7 +366,7 @@
 					  				}
 					  			?>
 								<?php
-					  				if($item['tipotrabajo'] == "Evaluación de casos clínicos"){
+					  				if($item['Tipotrabajo'] == "Evaluación de casos clínicos"){
 					  					?>
 					  						<option selected="" value="Evaluación de casos clínicos">Evaluación de casos clínicos</option>
 					  					<?php
@@ -934,7 +934,7 @@
 					<button type="submit" class="btn btn-primary deep-orange">
 						Guardar y continuar
 					</button>
-					<a class="btn btn-flat" href="Trabajo.php?Id=<?php echo $item['salaID']; ?>">
+					<a class="btn btn-flat" href="Trabajo.php?Id=<?php echo $item['SalaId']; ?>">
 		            	Cancelar
 		            </a>
 					<br />

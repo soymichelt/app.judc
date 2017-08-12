@@ -118,17 +118,17 @@
 							¿Esta seguro que desea eliminar este trabajo?
 						</h5>
 						<?php
-							echo $item['tema'];
+							echo $item['Tema'];
 						?>
 					</div>
 					<div class="col s12">
 						<br />
 						<form action="inc/InscripcionEliminar.php" method="POST">
-							<input type="hidden" name="Id" value="<?php echo $item['trabajoID']; ?>">
+							<input type="hidden" name="Id" value="<?php echo $item['TrabajoId']; ?>">
 							<button class="btn deep-orange" name="Submit" value="Subir" id="dnd_upload">
 				            	Eliminar
 				            </button>
-				            <a href="Trabajo.php?Id=<?php echo $item['salaID']; ?>" class="btn btn-flat">
+				            <a href="Trabajo.php?Id=<?php echo $item['SalaId']; ?>" class="btn btn-flat">
 				            	Cancelar
 				            </a>
 						</form>

@@ -79,7 +79,7 @@
 									      ?>
 									      <tr>
 									        <td>
-									        	<?php echo $fila['userID']; ?>
+									        	<?php echo $fila['UserId']; ?>
 									        </td>
 									        <td>
 									        	<?php echo $fila['fullname']; ?>
@@ -88,7 +88,7 @@
 									        	<?php echo $fila['email']; ?>
 									        </td>
 									        <td>
-									        	<?php echo $fila['passwd']; ?>
+									        	<?php echo $fila['password']; ?>
 									        </td>
 									        <td>
 									        	<?php
