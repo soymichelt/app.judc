@@ -78,7 +78,7 @@
 												if($tmp == 1) {
 											?>
 											<li>
-												<a href="Inscripcion.php?SalaID=<?php echo $item['salaID']; ?>" class="btn-floating green">
+												<a href="Inscripcion.php?SalaID=<?php echo $item['SalaId']; ?>" class="btn-floating green">
 													<i class="material-icons">add</i>
 												</a>
 											</li>

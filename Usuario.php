@@ -92,7 +92,7 @@
 									        </td>
 									        <td>
 									        	<?php
-									        		if($fila["rol"]) {
+									        		if($fila["rol"] == "1") {
 									        			echo "Normal";
 									        		}
 									        		else {

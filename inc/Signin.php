@@ -10,7 +10,7 @@
 
 	session_start();
 	require("conexion.php");
-	$consulta = "SELECT fullname, email, rol FROM usuarios WHERE email = '".$mysqli->real_escape_string($_POST['UserName'])."' AND passwd = '".$mysqli->real_escape_string($_POST['UserPassword'])."'";
+	$consulta = "SELECT fullname, email, rol FROM usuarios WHERE email = '".$mysqli->real_escape_string($_POST['UserName'])."' AND password = '".$mysqli->real_escape_string($_POST['UserPassword'])."'";
 	echo $consulta;
 	
 	$res = $mysqli->query($consulta);

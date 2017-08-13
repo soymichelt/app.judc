@@ -41,8 +41,8 @@
 									</a>
 									<ul>
 										<li>
-											<a href="Sala.php" class="btn-floating blue modal-trigger modal-sala">
-												<i class="material-icons">library_books</i>
+											<a href="SalaAgregar.php" class="btn-floating green">
+												<i class="material-icons">add</i>
 											</a>
 										</li>
 										<li>
@@ -59,7 +59,7 @@
 				<div class="row">
 					<div class="col s12">
 						<div>
-							<div class="page"> 
+							<div class="page">
 						  		<div class="row">
 						  			<div class="col s12">
 						  			  <table id="example" class="table table-hover condensed striped responsive-table" >

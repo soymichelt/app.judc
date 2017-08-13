@@ -23,9 +23,11 @@
   $passwd=$_POST["passwd"];
   $rol = $_POST["rol"];
 
-  $consulta= "INSERT INTO usuarios(fullname, email, passwd, rol) VALUES ('$fullname','$email','$passwd', $rol)";
+  $consulta= "INSERT INTO usuarios(fullname, email, password, rol) VALUES ('$fullname','$email','$passwd', $rol)";
 
   $resultado=$mysqli->query($consulta);
+
+  echo $consulta;
 
   if($resultado){
     header("Location: ../Usuario.php");
