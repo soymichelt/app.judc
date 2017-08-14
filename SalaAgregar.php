@@ -79,6 +79,45 @@
 								<br />
 								<input id="local" name="local" type="text" class="validate" validate="">
 							</div>
+							
+							<div class="col s12">
+								<div class="center">
+									<?php
+										if(isset($_GET['Err'])) {
+											if(empty($_GET['Err'])) {
+									?>
+
+									<?php
+											}
+											else {
+									?>
+													<div class="chip red">
+									<?php
+														switch($_GET['Err']) {
+															case "1":
+																echo "Favor ingresar Usuario y Contraseña";
+															break;
+															case "2":
+																echo "Ha ocurrido un problema intentar mas tarde";
+															break;
+															case "3":
+																echo "Usuario o Contraseña incorrectos";
+															break;
+														}
+									?>
+														<i class="close material-icons">close</i>
+													</div>
+									<?php
+											}
+										}
+										else {
+									?>
+
+									<?php
+										}
+									?>
+								</div>
+							</div>
 
 							<div class="custom-input-fild col s12">
 								<br />

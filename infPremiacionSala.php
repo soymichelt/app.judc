@@ -67,7 +67,7 @@
 					<tbody>
 		';
 		while($itemSala = $resSala->fetch_assoc()) {
-			$consulta = $mysqli->query("SELECT DISTINCT trabajos.promedio, trabajos.trabajoID, trabajos.tema, salas.Nombre FROM trabajos INNER JOIN salas ON trabajos.salaID = salas.salaID WHERE trabajos.salaID = ".$itemSala['salaID']." GROUP BY trabajos.trabajoID, trabajos.tema ORDER BY trabajos.promedio DESC LIMIT 3");//consulta a la tabal trabajos
+			$consulta = $mysqli->query("SELECT DISTINCT trabajos.promedio, trabajos.TrabajoId, trabajos.Tema, salas.Nombre FROM trabajos INNER JOIN salas ON trabajos.SalaId = salas.SalaId WHERE trabajos.SalaId = ".$itemSala['SalaId']." GROUP BY trabajos.TrabajoId, trabajos.Tema ORDER BY trabajos.promedio DESC LIMIT 3");//consulta a la tabal trabajos
 				//validacion de lugares
 				$nLug1 = 0;
 				$nLug2 = 0;
@@ -75,7 +75,7 @@
 
 				while($item = $consulta->fetch_assoc()) {
 					//Consulta para seleccionar lugares repetitivos si existen
-					$resLugares = $mysqli->query("SELECT trabajos.promedio, trabajos.trabajoID, trabajos.tema, salas.Nombre FROM trabajos INNER JOIN salas ON trabajos.salaID = salas.salaID WHERE trabajos.salaID = ".$itemSala['salaID']." AND trabajos.promedio = ".$item["promedio"]);
+					$resLugares = $mysqli->query("SELECT trabajos.promedio, trabajos.TrabajoId, trabajos.Tema, salas.Nombre FROM trabajos INNER JOIN salas ON trabajos.SalaId = salas.SalaId WHERE trabajos.SalaId = ".$itemSala['SalaId']." AND trabajos.promedio = ".$item["promedio"]);
 
 				//Lugares
 				$lugar = "";
@@ -85,17 +85,17 @@
 				else {
 					if($item["promedio"] >= 90){
 						if($nLug1 == 0) {
-							$lugar = "Primer Luguar";
+							$lugar = "Primer Lugar";
 							$nLug1 = 1;
 						}
 						else {
 							if($nLug2 == 0) {
-								$lugar = "Segundo Luguar";
+								$lugar = "Segundo Lugar";
 								$nLug2 = 1;
 							}
 							else{
 								if($nLug3 == 0) {
-									$lugar = "Tercer Luguar";
+									$lugar = "Tercer Lugar";
 									$nLug3 = 1;
 								}
 							}
@@ -104,12 +104,12 @@
 
 					else if($item["promedio"] >= 80 && $item["promedio"] <= 89){
 						if($nLug2 == 0) {
-							$lugar = "Segundo Luguar";
+							$lugar = "Segundo Lugar";
 							$nLug2 = 1;
 						}
 						else {
 							if($nLug3 == 0) {
-								$lugar = "Tercer Luguar";
+								$lugar = "Tercer Lugar";
 								$nLug3 = 1;
 							}
 						}
@@ -117,7 +117,7 @@
 
 					else {
 						if($nLug3 == 0) {
-							$lugar = "Tercer Luguar";
+							$lugar = "Tercer Lugar";
 							$nLug3 = 1;
 						}
 						else {
@@ -143,9 +143,9 @@
 									</center>
 								</td>
 								<td>
-									<center>
-										'.$item['tema'].'
-									</center>
+									<p text-align="justify">
+										'.$item['Tema'].'
+									</p>
 								</td>
 								<td> 
 									<center>

@@ -16,9 +16,9 @@
 					<body>
 		';
 		while($itemSala = $resSala->fetch_assoc()) {
-			$consulta = $mysqli->query("SELECT trabajos.*, salas.nombre, salas.coordinador, salas.enlace, salas.local FROM trabajos INNER JOIN salas ON trabajos.SalaID = salas.SalaID WHERE salas.SalaID=".$itemSala['salaID']." ORDER BY trabajos.promedio DESC"); //consulta a la tabal trabajos
+			$consulta = $mysqli->query("SELECT trabajos.*, salas.Nombre, salas.Coordinador, salas.Enlace, salas.Local FROM trabajos INNER JOIN salas ON trabajos.SalaId = salas.SalaId WHERE salas.SalaId=".$itemSala['SalaId']." ORDER BY trabajos.promedio DESC");//consulta a la tabla trabajos		
 			$html=$html.'
-						<h3><center>Universidad Nacional Autónoma de Nicaragua, Managua</center></br>
+						<h3><center>Universidad Nacional Autónoma de Nicaraagua, Managua</center></br>
 						<center>Facultad Regional Multidisciplinaria de Chontales</center></br>
 						<center>UNAN FAREM Chontales</center></h3>
 						<center><img src="img/unan.png" width="40px" heigth="50px"></center>
@@ -28,22 +28,22 @@
 								<tr>
 									<td colspan="2">
 										<center>
-											<br />
+											<br/>
 											<strong>
-												Sala '.$itemSala['salaID'].': '.$itemSala['Nombre'].'
+												Sala '.$itemSala['SalaId'].': '.$itemSala['Nombre'].'
 											</strong>
-											<br />
+											<br/>
 										</center>
 									</td>
 									<td colspan="2">
 										<center>
-											<br />
+											<br/>
 											<strong>
 												Coordinador
 												<br />
-												'.$itemSala['coordinador'].'
+												'.$itemSala['Coordinador'].'
 											</strong>
-											<br />
+											<br/>
 										</center>
 									</td>
 									<td colspan="2">
@@ -52,7 +52,7 @@
 											<strong>
 												ENLACE
 												<br />
-												'.$itemSala['enlace'].'
+												'.$itemSala['Enlace'].'
 											</strong>
 											<br />
 										</center>
@@ -63,7 +63,7 @@
 											<strong>
 												LOCAL
 												<br />
-												'.$itemSala['local'].'
+												'.$itemSala['Local'].'
 											</strong>
 											<br />
 										</center>
@@ -122,55 +122,57 @@
 				while($item = $consulta->fetch_assoc()) {
 					//AUTORES
 					//Autor numero 1
-					$autor = $item['autor1'];
-					if(!empty($item['autor2'])) {
+					$autor = $item['Autor1'];
+					if(!empty($item['Autor2'])) {
 						//Autor numero 2
-						$autor = $autor."<br />".$item['autor2'];
-						if(!empty($item['autor3'])) {
+						$autor = $autor."<br />".$item['Autor2'];
+						if(!empty($item['Autor3'])) {
 							//Autor numero 3
-							$autor = $autor."<br />".$item['autor3'];
-							if(!empty($item['autor4'])) {
+							$autor = $autor."<br />".$item['Autor3'];
+							if(!empty($item['Autor4'])) {
 								//Autor numero 4
-								$autor = $autor."<br />".$item['autor4'];
-								if(!empty($item['autor5'])) {
+								$autor = $autor."<br />".$item['Autor4'];
+								if(!empty($item['Autor5'])) {
 									//Autor numero 5
-									$autor = $autor."<br />".$item['autor5'];					
+									$autor = $autor."<br />".$item['Autor5'];					
 								}
 							}
 						}
 					}
-					$tutor = $item['tutor1'];
-					if(!empty($item['tutor2'])) {
+					$tutor = $item['Tutor1'];
+					if(!empty($item['Tutor2'])) {
 						//Autor numero 2
-						$tutor = $tutor."<br />".$item['tutor2'];
-						if(!empty($item['tutor3'])) {
+						$tutor = $tutor."<br />".$item['Tutor2'];
+						if(!empty($item['Tutor3'])) {
 							//Autor numero 3
-							$tutor = $tutor."<br />".$item['tutor3'];
+							$tutor = $tutor."<br />".$item['Tutor3'];
 						}
 					}
-					$tipotrabajo =$item['tipotrabajo'];
+					$tipotrabajo =$item['Tipotrabajo'];
 					$carrera =$item['carrera'];
 					$anioesc =$item['anioesc'];
-					$tutor = $item['tutor1'];
-					if(!empty($item['tutor2'])) {
+					$tutor = $item['Tutor1'];
+					if(!empty($item['Tutor2'])) {
 						//Autor numero 2
-						$tutor = $tutor."<br />".$item['tutor2'];
-						if(!empty($item['tutor3'])) {
+						$tutor = $tutor."<br />".$item['Tutor2'];
+						if(!empty($item['Tutor3'])) {
 							//Autor numero 3
-							$tutor = $tutor."<br />".$item['tutor3'];
+							$tutor = $tutor."<br />".$item['Tutor3'];
 						}
 					}
 					$promedio = $item['promedio'];
 					$html=$html.'
 									<tr>
-										<td>	
-											'.$item['tema'].'
+										<td>
+											<p text-align="justify">	
+												'.$item['Tema'].'
+											</p>
 										</td>
 										<td>
 											'.$autor.'
 										</td>
 										<td>
-											'.$item['tipotrabajo'].'
+											'.$item['Tipotrabajo'].'
 										</td>
 										<td>
 											<center>
