@@ -47,9 +47,9 @@
       if($rSal) {
         while($iSal = $rSal->fetch_assoc()) {
     ?>
-    <a href="Trabajo.php?Id=<?php echo $iSal['salaID']; ?>" class="waves-effect" href="#!">
+    <a href="Trabajo.php?Id=<?php echo $iSal['SalaId']; ?>" class="waves-effect" href="#!">
       <i class="material-icons blue-grey-text text-darken-1">playlist_add</i>
-      <?php echo "Sala ".$iSal["salaID"].": ".$iSal["Nombre"]; ?>
+      <?php echo "Sala ".$iSal["SalaId"].": ".$iSal["Nombre"]; ?>
     </a>
     <?php
         }

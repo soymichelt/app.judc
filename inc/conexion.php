@@ -1,7 +1,7 @@
 <?php
 	$server = "localhost";
 	$user = "root";
-	$pw = "michel121";
+	$pw = "judc123*";
 	$bd = "judc";
 	$mysqli= new mysqli($server, $user, $pw, $bd);
 	if(mysqli_connect_errno()){

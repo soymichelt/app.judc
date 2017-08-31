@@ -7,11 +7,11 @@
 	}
 	echo $_POST["Id"];
 	if(isset($_POST['Id'])) {
-		if(!empty($_POST['Id'])) {
+		if(trim($_POST['Id']) != "") {
 			$Id = $_POST['Id'];
 		}
 		else {
-			//header('Location: ../Index.php');
+			header('Location: ../Index.php');
 		}
 	}
 	else {
@@ -48,7 +48,8 @@
 							else {
 								header("Location: ../Trabajo.php?Id=".$item["salaID"]);
 							}
-						} else {
+						}
+						else {
 							header("Location: ../Subir.php?Id=".$item["trabajoID"]."&Err=3");
 						}
 					}

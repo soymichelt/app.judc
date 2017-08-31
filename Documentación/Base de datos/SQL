@@ -46,8 +46,10 @@ CREATE TABLE Trabajos(
     Asesor1         VARCHAR(100)     NOT NULL,
     Asesor2         VARCHAR(100)     NOT NULL,
     Jurado1         VARCHAR(100)     NOT NULL,
+    Cargo1          VARCHAR(100)     NOT NULL,
     Jurado2         VARCHAR(100)     NOT NULL,
-    Tipo            VARCHAR(100)     NOT NULL,
+    Cargo2          VARCHAR(100)     NOT NULL,
+    Tipotrabajo     VARCHAR(100)     NOT NULL,
     anioesc         VARCHAR(50)      NOT NULL,
     departamento    VARCHAR(100)     NOT NULL,
     carrera         VARCHAR(100)     NOT NULL,
@@ -55,7 +57,7 @@ CREATE TABLE Trabajos(
     nota2           DECIMAL(3, 2)    NOT NULL,
     promedio        DECIMAL(3, 2)    NOT NULL,
     SalaId          INT              NOT NULL,
-    UserId          INT              NOT NULL,
+    UserId          INT              NULL,
     PRIMARY KEY (TrabajoId)
 )ENGINE=MYISAM
 ;

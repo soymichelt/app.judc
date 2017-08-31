@@ -249,7 +249,7 @@
 										<td>COORDINADOR</td>
 										<td>
 											<?php
-												echo $item['coordinador'];
+												echo $item['Coordinador'];
 											?>
 										</td>
 									</tr>
@@ -257,7 +257,7 @@
 										<td>ENLACE</td>
 										<td>
 											<?php
-												echo $item['enlace'];
+												echo $item['Enlace'];
 											?>
 										</td>
 									</tr>
@@ -265,7 +265,7 @@
 										<td>LOCAL</td>
 										<td>
 											<?php
-												echo $item['local'];
+												echo $item['Local'];
 											?>
 										</td>
 									</tr>

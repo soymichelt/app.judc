@@ -13,7 +13,7 @@
 		header('Location: Sala.php');
 	}
 	else {
-		if(empty($_GET['Id'])) {
+		if(trim($_GET['Id']) == "") {
 			header('Location: Sala.php');
 		}
 	}
